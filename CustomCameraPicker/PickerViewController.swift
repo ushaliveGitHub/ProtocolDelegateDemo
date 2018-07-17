@@ -71,6 +71,7 @@ class PickerViewController: UIViewController,
             let myPickerController = UIImagePickerController()
             myPickerController.delegate = self
             myPickerController.sourceType = .camera
+            myPickerController.allowsEditing = true
             self.present(myPickerController, animated: true, completion: nil)
         }
         
@@ -81,7 +82,7 @@ class PickerViewController: UIViewController,
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             delegate?.setImage(image: image)
         }else{
             print("Something went wrong")
