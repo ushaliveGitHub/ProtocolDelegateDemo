@@ -12,6 +12,8 @@
 // and Media Library Usage Description
 
 import UIKit
+import Photos
+import AVFoundation
 
 class ViewController: UIViewController,ImageProtocol {
     
@@ -39,6 +41,8 @@ class ViewController: UIViewController,ImageProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.photoLibraryPermission()
+        
     }
 
     @IBAction func didTapProfile(_ sender: Any) {
@@ -46,4 +50,23 @@ class ViewController: UIViewController,ImageProtocol {
         pickerViewController.delegate = self
         self.navigationController?.pushViewController(pickerViewController, animated: true)
     }
+    
+    //MARK: Helper Methods
+    
+    func photoLibraryPermission(){
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .denied, .restricted:
+            print("access denied")
+            return
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({ (status) in
+                if status != .authorized{
+                    print("access denied")
+                }
+            })
+        case .authorized:
+            return
+        }
+    }//end of photoLibraryPermission*/
 }

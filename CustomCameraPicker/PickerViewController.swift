@@ -34,17 +34,16 @@ class PickerViewController: UIViewController,
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
         
+        //self.photoLibraryPermission(completion:getPhotos)
         getPhotos()
     }
-    
-    //MARK: Helper Methods
     
     func getPhotos(){
         
         let imageManager = PHImageManager.default()
         let requestOptions = PHImageRequestOptions()
         requestOptions.isSynchronous = true
-        requestOptions.deliveryMode = .opportunistic
+        requestOptions.deliveryMode = .fastFormat
         
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -74,7 +73,6 @@ class PickerViewController: UIViewController,
             myPickerController.allowsEditing = true
             self.present(myPickerController, animated: true, completion: nil)
         }
-        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
