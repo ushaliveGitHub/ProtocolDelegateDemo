@@ -108,7 +108,6 @@ class PickerViewController: UIViewController,
         switch indexPath.item{
         case 0://camera selected
             self.camera()
-            
         default: //image picked
             if let indexPath = collectionView.indexPathsForSelectedItems?.first{
                 let imageCell = collectionView.cellForItem(at: indexPath) as! UserImagesCollectionViewCell
