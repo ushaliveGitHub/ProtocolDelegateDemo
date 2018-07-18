@@ -17,6 +17,16 @@ import AVFoundation
 
 class ViewController: UIViewController,ImageProtocol {
     
+    var accessGranted:Bool?{
+        didSet{
+            DispatchQueue.main.async(){
+                let pickerViewController = self.storyboard?.instantiateViewController(withIdentifier: storyBoard.pickerViewController) as! PickerViewController
+                pickerViewController.delegate = self
+                self.navigationController?.pushViewController(pickerViewController, animated: true)
+            }
+        }
+    }
+    
     func setImage(image: UIImage) {
         self.profileImage = image
     }
@@ -41,14 +51,11 @@ class ViewController: UIViewController,ImageProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.photoLibraryPermission()
         
     }
 
     @IBAction func didTapProfile(_ sender: Any) {
-         let pickerViewController = self.storyboard?.instantiateViewController(withIdentifier: storyBoard.pickerViewController) as! PickerViewController
-        pickerViewController.delegate = self
-        self.navigationController?.pushViewController(pickerViewController, animated: true)
+         self.photoLibraryPermission()
     }
     
     //MARK: Helper Methods
@@ -63,9 +70,12 @@ class ViewController: UIViewController,ImageProtocol {
             PHPhotoLibrary.requestAuthorization({ (status) in
                 if status != .authorized{
                     print("access denied")
+                }else{
+                     self.accessGranted = true
                 }
             })
         case .authorized:
+            self.accessGranted = true
             return
         }
     }//end of photoLibraryPermission*/
