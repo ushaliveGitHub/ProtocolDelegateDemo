@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CustomCameraPicker.xcodeproj">
+      location = "self:/Users/Usha/Downloads/Archive/CustomCameraPicker/CustomImagePicker.xcodeproj">
    </FileRef>
 </Workspace>

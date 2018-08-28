@@ -107,7 +107,14 @@ class PickerViewController: UIViewController,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.item{
         case 0://camera selected
-            self.camera()
+            #if targetEnvironment(simulator)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alertControl = UIAlertController(title: "Invalid Action", message: "Camera cannot be accessed from a simulator", preferredStyle: .alert)
+                alertControl.addAction(okAction)
+                self.present(alertControl, animated: true, completion: nil)
+            #else
+                self.camera()
+            #endif
         default: //image picked
             if let indexPath = collectionView.indexPathsForSelectedItems?.first{
                 let imageCell = collectionView.cellForItem(at: indexPath) as! UserImagesCollectionViewCell

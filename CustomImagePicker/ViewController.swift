@@ -45,6 +45,11 @@ class ViewController: UIViewController,ImageProtocol {
         if let image = profileImage{
             DispatchQueue.main.async{
                 self.profileImageView.image = image
+                self.profileImageView.layer.masksToBounds = false
+                self.profileImageView.clipsToBounds = true
+                self.profileImageView.layer.cornerRadius = 75
+                self.profileImageView.layer.borderWidth = 0.5
+                self.profileImageView.layer.borderColor = UIColor.gray.cgColor
             }
         }
     }
